@@ -1,0 +1,37 @@
+version: '3'
+services:
+  redis1:
+    image: redis:latest
+    container_name: mq-redis1
+    ports:
+      - "32768:6379"
+      - "32769:16379"
+    volumes:
+      - ./node1.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redis2:
+    image: redis:latest
+    container_name: mq-redis2
+    ports:
+      - "32770:6379"
+      - "32771:16379"
+    volumes:
+      - ./node2.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redis3:
+    image: redis:latest
+    container_name: mq-redis3
+    ports:
+      - "32772:6379"
+      - "32773:16379"
+    volumes:
+      - ./node3.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redis-cluster:
+    image: redis:latest
+    container_name: mq-redis-cluster
+    depends_on:
+      - redis1
+      - redis2
+      - redis3
+    command: "/bin/sh -c \"echo yes | redis-cli --cluster create redis1:6379 redis2:6379 redis3:6379\""
