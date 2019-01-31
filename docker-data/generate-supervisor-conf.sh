@@ -12,15 +12,17 @@ program_entry_template ()
 
 [program:redis$count]
 command=redis-server /redis.conf --port $port --dir /redis-data/$count --cluster-announce-ip $cluster_announce_ip
-stdout_logfile=/var/log/supervisor/%(program_name)s.log
-stderr_logfile=/var/log/supervisor/%(program_name)s.log
+stdout_logfile=/dev/fd/1
+stderr_logfile=/dev/fd/2
 autorestart=true
 "
 }
 
 result_str="
 [supervisord]
-nodaemon=false
+nodaemon=true
+
+[supervisorctl]
 "
 
 count=1

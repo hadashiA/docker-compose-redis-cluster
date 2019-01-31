@@ -4,8 +4,8 @@ services:
     image: mq/redis-cluster
     container_name: mq-redis-cluster
     network_mode: host
+    ports:
+    - "7000:7000"
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - '7000-7002:7000-7002'
