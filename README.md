@@ -13,3 +13,7 @@ The docker-compose configuration to run redis cluster.
 2. `cd docker-compose-redis-cluster`
 3. `docker-compose build`
 4. `docker-compose up` or `docker-compose up -d`
+
+#### If you need to connect from host machine
+
+`REDIS_CLUSTER_IP=127.0.0.1 docker-compose up`
